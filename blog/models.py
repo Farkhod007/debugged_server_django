@@ -1,14 +1,14 @@
 from django.db import models
 
 # Create your models here.
-class users(models.Model):
+class User(models.Model):
     pass
-class posts(models.Model):
-    id = models.IntegerField(primary_key=True)
-    user_id = models.ForeignKey(users,db_column='id',on_delete=models.CASCADE)
-    name = models.CharField()
-    desc = models.TextField()
-    img = models.CharField()
-    excerpt = models.CharField()
+
+class Post(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    name = models.CharField(max_length = 255)
+    desc = models.TextField() 
+    img = models.CharField(max_length = 255)
+    excerpt = models.TextField()
     created_at = models.TimeField()
     updated_at = models.TimeField()

@@ -8,8 +8,11 @@ class Post(models.Model):
     image = models.ImageField(upload_to = 'posts') 
     excerpt = models.TextField()
     created_at = models.TimeField()
-    updated_at = models.TimeField()
+    updated_at = models.TimeField(default = None, blank = True)
     deleted_at = models.TimeField(default = None, blank = True, null = True)
+    
+    class Meta:
+        db_table = "posts"
 
     def __str__(self):
         return self.title

@@ -21,3 +21,9 @@ class categories(models.Model):
     name = models.CharField(max_length = 255)
     created_at = models.TimeField()
     updated_at = models.TimeField(default = None, blank = True)
+class tags(models.Model):
+    # parent_id = models.ForeignKey(tags,on_delete = models.CASCADE) #shu qatorda error bervotti
+    name = models.CharField(max_length = 255)
+    created_at = models.TimeField()
+    updated_at = models.TimeField(default = None,blank = True)
+    

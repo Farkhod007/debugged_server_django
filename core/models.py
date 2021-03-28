@@ -16,4 +16,8 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
-    
+class categories(models.Model):
+    # parent_id = models.ForeignKey(categories,on_delete = models.CASCADE) #shu qatorda error bervotti
+    name = models.CharField(max_length = 255)
+    created_at = models.TimeField()
+    updated_at = models.TimeField(default = None, blank = True)

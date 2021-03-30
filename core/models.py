@@ -24,3 +24,11 @@ class Category(models.Model):
     created_at = models.TimeField()
     updated_at = models.TimeField(default = None, blank = True)
     deleted_at = models.TimeField(default = None, blank = True, null = True)
+
+
+class Tag(models.Model):
+    parent_id = models.ForeignKey('self', on_delete = models.CASCADE)
+    name = models.CharField(max_length = 255)
+    created_at = models.TimeField()
+    updated_at = models.TimeField(default = None, blank = True)
+    deleted_at = models.TimeField(default = None, blank = True, null = True)

@@ -16,4 +16,10 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
-    
+
+
+class Category(models.Model):
+    parent_id = models.ForeignKey('self', on_delete = models.CASCADE)
+    name = models.CharField(max_length = 255)
+    created_at = models.TimeField()
+    updated_at = models.TimeField(default = None, blank = True)

@@ -5,11 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    {% include 'core/components/post.html' %}
-    {% include 'core/components/post.html' %}
-    {% include 'core/components/post.html' %}
-    {% include 'core/components/post.html' %}
-    {% include 'core/components/post.html' %}
-    {% include 'core/components/post.html' %}
-    {% include 'core/components/post.html' %}
+    {% for post in posts %}
+        {% include 'core/components/post.html' %}
+    {% endfor %}
 {% endblock %}

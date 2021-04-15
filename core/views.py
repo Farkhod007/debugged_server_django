@@ -3,6 +3,10 @@ from django.templatetags.static import static
 from core.models.post import Post
 
 def home(request):
-    posts = Post.objects.all()
-    return render(request, 'core/home.html', {'data': posts})
+    feturedPost = Post.objects.get(featured = True)
+    regularPosts = Post.objects.filter(featured = False)
+    return render(request, 'core/home.html', {
+        'feturedPost': feturedPost,
+        'regularPosts': regularPosts
+    })
     

@@ -1,11 +1,71 @@
-{% extends 'core/layouts/base.html' %} {% load static %} 
+{% extends 'core/layouts/base.html' %} {% load static %}
 
 {% block meta %}
-    <title>Document</title>
+    <title>Blogposts</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 {% endblock %}
 
 {% block content %}
-    {% for post in posts %}
-        {% include 'core/components/post.html' %}
-    {% endfor %}
+    <section class="blogposts container">
+        <article class="blogpost featured">
+            <img class="image" src="{{ feturedPost.image.url }}" alt="{{ feturedPost.title }}" />
+            <div> 
+                <ul class="categories">
+                    <li class="item">
+                        <a class="link" href="#">Guides</a>
+                    </li>
+                    <li class="item">
+                        <a class="link" href="#">Localization</a>
+                    </li>
+                </ul>
+                <h3 class="title">
+                    {{ feturedPost.title }}
+                </h3>
+                <p class="excerpt">
+                    {{ feturedPost.excerpt }}
+                </p>
+                <address>
+                    <ul class="metas">
+                        <li class="item">
+                            <a class="link" href="#">{{ feturedPost.created_at }}</a>
+                        </li>
+                        <li class="item">
+                            <a class="link" href="#">{{ feturedPost.user }}</a>
+                        </li>
+                    </ul>
+                </address>
+            </div>
+        </article>
+        <div class="normal">
+            {% for regularPost in regularPosts %}
+                <article class="blogpost">
+                    <img class="image" src="{{ regularPost.image.url }}"
+                        alt="{{ regularPost.title }}">
+                    <div>
+                        <ul class="categories">
+                            <li class="item">
+                                <a class="link" href="#">Guides</a>
+                            </li>
+                        </ul>
+                        <h3 class="title">
+                            {{ regularPost.title }}
+                        </h3>
+                        <p class="excerpt">
+                            {{ regularPost.excerpt }}
+                        </p>
+                        <address>
+                            <ul class="metas">
+                                <li class="item">
+                                    <a class="link" href="#">{{ regularPost.created_at }}</a>
+                                </li>
+                                <li class="item">
+                                    <a class="link" href="#">{{ regularPost.user }}</a>
+                                </li>
+                            </ul>
+                        </address>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    </section>
 {% endblock %}

@@ -8,7 +8,20 @@ class Post(TimeFieldsBase):
     body = models.TextField() 
     image = models.ImageField(upload_to = 'posts') 
     excerpt = models.TextField()
-    
+    featured = models.BooleanField(default = False)
+    published = 'PB'
+    pending = 'PN'
+    draft = 'DT'
+    STATUS_CHOICES = [
+        (published, 'Published'),
+        (pending, 'Pending'),
+        (draft, 'Draft'),
+    ]
+    status = models.CharField(
+        max_length = 2,
+        choices = STATUS_CHOICES
+    )
+
     class Meta:
         db_table = "posts"
 

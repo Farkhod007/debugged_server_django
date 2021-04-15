@@ -1,0 +1,79 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+/*************************************
+*******  Container starts
+**************************************/
+.container {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+
+/*************************************
+*******  Footer 1 starts
+**************************************/
+
+.footer-1 {
+    display: grid;
+    grid-column-gap: 48px;
+    grid-template-columns: repeat(5, 1fr);
+    margin-top: 80px;
+    margin-bottom: 120px;
+}
+
+.footer-1 .logo {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 37px;
+    color: #000000;
+    margin-bottom: 24px;
+}
+
+.footer-1 .title {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 150%;
+    letter-spacing: 0.02em;
+    color: #000000;
+    margin-bottom: 16px;
+    margin-top: 16px;
+}
+
+.footer-1 .list {
+    list-style-type: none;
+}
+
+.footer-1 .item {
+    padding: 16px;
+}
+
+.footer-1 .item:last-child {
+    padding-bottom: 0;
+}
+
+.footer-1 .link {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 150%;
+    letter-spacing: 0.02em;
+    color: #282828;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.footer-1 .link svg {
+    margin-right: 12px;
+}
+
+.footer-1 .link:hover {
+    text-decoration: underline;
+}

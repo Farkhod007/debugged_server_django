@@ -1,11 +1,74 @@
-{% extends 'core/layouts/base.html' %} {% load static %} 
+{% extends 'core/layouts/base.html' %} {% load static %}
 
 {% block meta %}
-    <title>Document</title>
+<title>Blogposts</title>
+<link rel="stylesheet" href="{% static 'css/style.css' %}" />
 {% endblock %}
 
-{% block content %} 
-    {% for post in posts %}
-        {% include 'core/components/post.html' %}
+{% block content %}
+<section class="blogposts container">
+    {% for results in data %}
+        <article class="blogpost featured">
+        <img class="image" src="{{ results.image.url }}" alt="[EBOOK] How to create a strong localization team according to 10+
+        experts" />
+        <div>
+            <ul class="categories">
+                <li class="item">
+                    <a class="link" href="#">Guides</a>
+                </li>
+                <li class="item">
+                    <a class="link" href="#">Localization</a>
+                </li>
+            </ul>
+            <h3 class="title">
+                {{ results.title }}
+            </h3>
+            <p class="excerpt">
+                {{ results.excerpt }}
+            </p>
+            <address>
+                <ul class="metas">
+                    <li class="item">
+                        <a class="link" href="#">{{ results.created_at }}</a>
+                    </li>
+                    <li class="item">
+                        <a class="link" href="#">Mia Čomić</a>
+                    </li>
+                </ul>
+            </address>
+        </div>
+        </article>
     {% endfor %}
+    <div class="normal">
+        {% for results in data %}
+            <article class="blogpost">
+            <img class="image" src="{{ results.image.url }}"
+                alt="5 localization issues project managers face and how to solve them">
+            <div>
+                <ul class="categories">
+                    <li class="item">
+                        <a class="link" href="#">Guides</a>
+                    </li>
+                </ul>
+                <h3 class="title">
+                    {{ results.title }}
+                </h3>
+                <p class="excerpt">
+                  {{ results.excerpt }}
+                </p>
+                <address>
+                    <ul class="metas">
+                        <li class="item">
+                            <a class="link" href="#">{{ results.created_at }}</a>
+                        </li>
+                        <li class="item">
+                            <a class="link" href="#">{{ results.name }}</a>
+                        </li>
+                    </ul>
+                </address>
+            </div>
+            </article>
+        {% endfor %}
+    </div>
+</section>
 {% endblock %}

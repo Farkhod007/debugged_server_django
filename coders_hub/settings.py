@@ -1,6 +1,5 @@
 from pathlib import Path
 import environ
-import os
 
 env = environ.Env()
 environ.Env.read_env()
@@ -9,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = '8ye7ebobmgms-syqhkg3l#lf+ybdpnwp(1h^^*bo)!53tpgpa&'
 
-DEBUG = True
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = []
 

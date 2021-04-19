@@ -3,15 +3,16 @@ from .base.time_fields_base import TimeFieldsBase
 from django.db import models
 
 class Post(TimeFieldsBase):
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
-    title = models.CharField(max_length = 255)
-    body = models.TextField() 
-    image = models.ImageField(upload_to = 'posts') 
-    excerpt = models.TextField()
-    featured = models.BooleanField(default = False)
     published = 'PB'
     pending = 'PN'
     draft = 'DT'
+
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    title = models.CharField(max_length = 255)
+    body = models.TextField()
+    image = models.ImageField(upload_to = 'posts') 
+    excerpt = models.TextField()
+    featured = models.BooleanField(default = False)
     STATUS_CHOICES = [
         (published, 'Published'),
         (pending, 'Pending'),

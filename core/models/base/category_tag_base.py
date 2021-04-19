@@ -1,7 +1,7 @@
 from django.db import models
 
 class CategoryTagBase(models.Model):
-    parent_id = models.ForeignKey('self', on_delete = models.CASCADE)
+    parent_id = models.ForeignKey('self', null = True, blank = True, on_delete = models.CASCADE)
     name = models.CharField(max_length = 255)
 
     class Meta:

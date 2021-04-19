@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post
+from .models import Post, Tag, Category
 from django import forms
 from tinymce.widgets import TinyMCE
 
@@ -17,3 +17,5 @@ class PostAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Post, PostAdmin)
+admin.site.register(Tag)
+admin.site.register(Category)

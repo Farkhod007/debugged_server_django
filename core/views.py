@@ -9,4 +9,6 @@ def home(request):
         'feturedPost': feturedPost,
         'regularPosts': regularPosts
     })
-    
+
+def category(request):
+    return render(request, 'core/categories.html')

@@ -1,5 +1,7 @@
-from pathlib import Path
 import environ
+import os
+
+from pathlib import Path
 
 env = environ.Env()
 environ.Env.read_env()
@@ -14,7 +16,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'core',
-    # 'tinymce',
+    'tinymce',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -91,6 +93,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+STATIC_ROOT = BASE_DIR / 'static'
 
 STATIC_URL = '/static/'
 
@@ -100,10 +103,14 @@ MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 
 
-# TINYMCE_JS_ROOT = '/media/tiny_mce/'
-# TINYMCE_JS_URL = os.path.join(MEDIA_URL, "tiny_mce/tiny_mce_src.js")
-# TINYMCE_DEFAULT_CONFIG = {
-#     'plugins': "table,spellchecker,paste,searchreplace",
-#     'theme': "advanced",
-# }
-# TINYMCE_SPELLCHECKER = True
+TINYMCE_JS_ROOT = "node_modules/tinymce"
+TINYMCE_JS_URL = os.path.join(TINYMCE_JS_ROOT, "tinymce.min.js")
+TINYMCE_DEFAULT_CONFIG = {
+    'plugins': "table, spellchecker, paste",
+    'theme': "silver",
+    'max_width': 1500,
+    'height': 400,
+    'custom_undo_redo_levels': 10,
+}
+TINYMCE_SPELLCHECKER = True
+TINYMCE_COMPRESSOR = True

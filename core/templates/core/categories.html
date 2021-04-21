@@ -1,12 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Categories</title>
-</head>
-<body>
-    <p>This is categories page !</p>
-</body>
-</html>
+{% extends 'core/layouts/base.html' %} {% load static %}
+
+{% block meta %}
+    <title>Category - </title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+{% endblock %}
+
+{% block content %}
+    <section class="blogposts container">
+        <div class="normal">
+            {% for post in posts %}
+                <article class="blogpost">
+                    <img class="image" src="{{ post.image.url }}"
+                        alt="{{ post.title }}">
+                    <div>
+                        <ul class="categories">
+                            <li class="item">
+                                <a class="link" href="#">Guides</a>
+                            </li>
+                        </ul>
+                        <h3 class="title">
+                            {{ post.title }}
+                        </h3>
+                        <p class="excerpt">
+                            {{ post.excerpt }}
+                        </p>
+                        <address>
+                            <ul class="metas">
+                                <li class="item">
+                                    <a class="link" href="#">{{ post.created_at }}</a>
+                                </li>
+                                <li class="item">
+                                    <a class="link" href="#">{{ post.user }}</a>
+                                </li>
+                            </ul>
+                        </address>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

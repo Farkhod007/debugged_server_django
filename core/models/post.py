@@ -27,3 +27,6 @@ class Post(TimeFieldsBase):
 
     def __str__(self):
         return self.title
+
+    # def get_year(self):
+    #     return self.created_at.strftime('%Y')

@@ -14,9 +14,11 @@
                         alt="{{ post.title }}">
                     <div>
                         <ul class="categories">
-                            <li class="item">
-                                <a class="link" href="#">Guides</a>
-                            </li>
+                            {% for category in post.category_set.all %}
+                                <li class="item">
+                                    <a class="link" href="{% url 'core:category' category.id %}">{{ category.name }}</a>
+                                </li>
+                            {% endfor %}
                         </ul>
                         <h3 class="title">
                             {{ post.title }}
@@ -27,7 +29,7 @@
                         <address>
                             <ul class="metas">
                                 <li class="item">
-                                    <a class="link" href="#">{{ post.created_at }}</a>
+                                    <a class="link" href="#">{{ post.created_at|date:"F d, Y" }}</a>
                                 </li>
                                 <li class="item">
                                     <a class="link" href="#">{{ post.user }}</a>

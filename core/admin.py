@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Post, Tag, Category
+from core.models.post import Post
+from core.models.tag import Tag
+from core.models.category import Category
 from django import forms
 from tinymce.widgets import TinyMCE
 
@@ -7,6 +9,7 @@ from tinymce.widgets import TinyMCE
 class TagInline(admin.TabularInline):
     model = Tag.posts.through
     extra = 1
+
 
 class CategoryInline(admin.TabularInline):
     model = Category.posts.through
@@ -25,6 +28,14 @@ class PostAdmin(admin.ModelAdmin):
     inlines = [TagInline, CategoryInline]
 
 
+class CategoryAdmin(admin.ModelAdmin):
+    exclude = ['posts']
+
+
+class TagAdmin(admin.ModelAdmin):
+    exclude = ['posts']
+
+
 admin.site.register(Post, PostAdmin)
-admin.site.register(Tag)
-admin.site.register(Category)
+admin.site.register(Tag, TagAdmin)
+admin.site.register(Category, CategoryAdmin)

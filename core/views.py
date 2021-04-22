@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.templatetags.static import static
-from .models import Post, Category
+from core.models.post import Post
+from core.models.category import Category
 
 def home(request):
     feturedPost = Post.objects.get(featured = True)
@@ -11,5 +12,7 @@ def home(request):
     })
 
 def category(request, id):
-    posts = Category.objects.get(pk = id).posts.all()
-    return render(request, 'core/categories.html', {'posts': posts})
+    posts = Category.objects.get(pk = id).posts.all
+    return render(request, 'core/categories.html', {
+        'posts': posts
+    })

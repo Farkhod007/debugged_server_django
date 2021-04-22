@@ -11,5 +11,7 @@ def home(request):
     })
 
 def category(request, id):
-    posts = Category.objects.get(pk = id).posts.all()
-    return render(request, 'core/categories.html', {'posts': posts})
+    posts = Category.objects.get(pk = id).posts.all
+    return render(request, 'core/categories.html', {
+        'posts': posts
+    })

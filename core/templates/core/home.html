@@ -11,12 +11,11 @@
             <img class="image" src="{{ feturedPost.image.url }}" alt="{{ feturedPost.title }}" />
             <div> 
                 <ul class="categories">
-                    <li class="item">
-                        <a class="link" href="#">Guides</a>
-                    </li>
-                    <li class="item">
-                        <a class="link" href="#">Localization</a>
-                    </li>
+                    {% for category in feturedPost.category_set.all %}
+                        <li class="item">
+                            <a class="link" href="{% url 'core:category' category.id %}">{{ category.name }}</a>
+                        </li>
+                    {% endfor %}
                 </ul>
                 <h3 class="title">
                     {{ feturedPost.title }}
@@ -27,7 +26,7 @@
                 <address>
                     <ul class="metas">
                         <li class="item">
-                            <a class="link" href="#">{{ feturedPost.created_at }}</a>
+                            <a class="link" href="#">{{ feturedPost.created_at|date:"F d, Y" }}</a>
                         </li>
                         <li class="item">
                             <a class="link" href="#">{{ feturedPost.user }}</a>
@@ -43,9 +42,11 @@
                         alt="{{ regularPost.title }}">
                     <div>
                         <ul class="categories">
-                            <li class="item">
-                                <a class="link" href="#">Guides</a>
-                            </li>
+                            {% for category in regularPost.category_set %}
+                                <li class="item">
+                                    <a class="link" href="{% url 'core:category' category.id %}">{{ category.name }}</a>
+                                </li>
+                            {% endfor %}
                         </ul>
                         <h3 class="title">
                             {{ regularPost.title }}
@@ -56,7 +57,7 @@
                         <address>
                             <ul class="metas">
                                 <li class="item">
-                                    <a class="link" href="#">{{ regularPost.created_at }}</a>
+                                    <a class="link" href="#">{{ regularPost.created_at|date:"F d, Y" }}</a>
                                 </li>
                                 <li class="item">
                                     <a class="link" href="#">{{ regularPost.user }}</a>

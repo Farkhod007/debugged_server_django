@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Post, Tag, Category
+from core.models.post import Post
+from core.models.tag import Tag
+from core.models.category import Category
 from django import forms
 from tinymce.widgets import TinyMCE
 

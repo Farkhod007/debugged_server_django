@@ -7,66 +7,70 @@
 
 {% block content %}
     <section class="blogposts container">
-        <article class="blogpost featured">
-            <img class="image" src="{{ feturedPost.image.url }}" alt="{{ feturedPost.title }}" />
-            <div> 
-                <ul class="categories">
-                    {% for category in feturedPost.category_set.all %}
-                        <li class="item">
-                            <a class="link" href="{% url 'core:category' category.id %}">{{ category.name }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-                <h3 class="title">
-                    {{ feturedPost.title }}
-                </h3>
-                <p class="excerpt">
-                    {{ feturedPost.excerpt }}
-                </p>
-                <address>
-                    <ul class="metas">
-                        <li class="item">
-                            <a class="link" href="#">{{ feturedPost.created_at|date:"F d, Y" }}</a>
-                        </li>
-                        <li class="item">
-                            <a class="link" href="#">{{ feturedPost.user }}</a>
-                        </li>
+        {% if featuredPost %}
+            <article class="blogpost featured">
+                <img class="image" src="{{ featuredPost.image.url }}" alt="{{ featuredPost.title }}" />
+                <div> 
+                    <ul class="categories">
+                        {% for category in featuredPost.category_set.all %}
+                            <li class="item">
+                                <a class="link" href="{% url 'core:category' category.id %}">{{ category.name }}</a>
+                            </li>
+                        {% endfor %}
                     </ul>
-                </address>
-            </div>
-        </article>
-        <div class="normal">
-            {% for regularPost in regularPosts %}
-                <article class="blogpost">
-                    <img class="image" src="{{ regularPost.image.url }}"
-                        alt="{{ regularPost.title }}">
-                    <div>
-                        <ul class="categories">
-                            {% for category in regularPost.category_set %}
-                                <li class="item">
-                                    <a class="link" href="{% url 'core:category' category.id %}">{{ category.name }}</a>
-                                </li>
-                            {% endfor %}
+                    <h3 class="title">
+                        {{ featuredPost.title }}
+                    </h3>
+                    <p class="excerpt">
+                        {{ featuredPost.excerpt }}
+                    </p>
+                    <address>
+                        <ul class="metas">
+                            <li class="item">
+                                <a class="link" href="#">{{ featuredPost.created_at|date:"F d, Y" }}</a>
+                            </li>
+                            <li class="item">
+                                <a class="link" href="#">{{ featuredPost.user }}</a>
+                            </li>
                         </ul>
-                        <h3 class="title">
-                            {{ regularPost.title }}
-                        </h3>
-                        <p class="excerpt">
-                            {{ regularPost.excerpt }}
-                        </p>
-                        <address>
-                            <ul class="metas">
-                                <li class="item">
-                                    <a class="link" href="#">{{ regularPost.created_at|date:"F d, Y" }}</a>
-                                </li>
-                                <li class="item">
-                                    <a class="link" href="#">{{ regularPost.user }}</a>
-                                </li>
+                    </address>
+                </div>
+            </article>
+        {% endif %}
+        {% if regularPosts %}
+            <div class="normal">
+                {% for regularPost in regularPosts %}
+                    <article class="blogpost">
+                        <img class="image" src="{{ regularPost.image.url }}"
+                            alt="{{ regularPost.title }}">
+                        <div>
+                            <ul class="categories">
+                                {% for category in regularPost.category_set.all %}
+                                    <li class="item">
+                                        <a class="link" href="{% url 'core:category' category.id %}">{{ category.name }}</a>
+                                    </li>
+                                {% endfor %}
                             </ul>
-                        </address>
-                    </div>
-                </article>
-            {% endfor %}
-        </div>
+                            <h3 class="title">
+                                {{ regularPost.title }}
+                            </h3>
+                            <p class="excerpt">
+                                {{ regularPost.excerpt }}
+                            </p>
+                            <address>
+                                <ul class="metas">
+                                    <li class="item">
+                                        <a class="link" href="#">{{ regularPost.created_at|date:"F d, Y" }}</a>
+                                    </li>
+                                    <li class="item">
+                                        <a class="link" href="#">{{ regularPost.user }}</a>
+                                    </li>
+                                </ul>
+                            </address>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% endif %}
     </section>
 {% endblock %}

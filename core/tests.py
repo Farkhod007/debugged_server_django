@@ -1,5 +1,4 @@
 import datetime
-import pprint
 
 from django.contrib.auth.models import User
 from django.test.client import Client
@@ -32,7 +31,6 @@ class HomeViewTests(TestCase):
             email = 'tester@admin.com', 
             password = 'password'
         )
-
 
     def test_featured_post_must_be_latest_one(self):
         """

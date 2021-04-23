@@ -104,7 +104,7 @@ MEDIA_URL = '/media/'
 
 
 TINYMCE_JS_ROOT = BASE_DIR / "node_modules/tinymce"
-TINYMCE_JS_URL = os.path.join(TINYMCE_JS_ROOT, "tinymce.min.js")
+TINYMCE_JS_URL = "node_modules/tinymce/tinymce.min.js"
 TINYMCE_DEFAULT_CONFIG = {
     'plugins': "table, spellchecker, paste",
     'theme': "silver",

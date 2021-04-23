@@ -8,28 +8,28 @@
 {% block content %}
     <section class="blogposts container">
         <article class="blogpost featured">
-            <img class="image" src="{{ feturedPost.image.url }}" alt="{{ feturedPost.title }}" />
+            <img class="image" src="{{ featuredPost.image.url }}" alt="{{ featuredPost.title }}" />
             <div> 
                 <ul class="categories">
-                    {% for category in feturedPost.category_set.all %}
+                    {% for category in featuredPost.category_set.all %}
                         <li class="item">
                             <a class="link" href="{% url 'core:category' category.id %}">{{ category.name }}</a>
                         </li>
                     {% endfor %}
                 </ul>
                 <h3 class="title">
-                    {{ feturedPost.title }}
+                    {{ featuredPost.title }}
                 </h3>
                 <p class="excerpt">
-                    {{ feturedPost.excerpt }}
+                    {{ featuredPost.excerpt }}
                 </p>
                 <address>
                     <ul class="metas">
                         <li class="item">
-                            <a class="link" href="#">{{ feturedPost.created_at|date:"F d, Y" }}</a>
+                            <a class="link" href="#">{{ featuredPost.created_at|date:"F d, Y" }}</a>
                         </li>
                         <li class="item">
-                            <a class="link" href="#">{{ feturedPost.user }}</a>
+                            <a class="link" href="#">{{ featuredPost.user }}</a>
                         </li>
                     </ul>
                 </address>

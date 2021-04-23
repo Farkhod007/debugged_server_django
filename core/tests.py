@@ -1,5 +1,4 @@
 import datetime
-import pprint
 
 from django.contrib.auth.models import User
 from django.test.client import Client
@@ -21,8 +20,8 @@ def create_post(user, featured, days):
     )
 
 class HomeViewTests(TestCase):
-    def get_user(self):
-        return User.objects.create_superuser(
+    def setUp(self):
+        self.user =  User.objects.create_superuser(
             username = 'Tester', 
             email = 'tester@admin.com', 
             password = 'password'
@@ -32,12 +31,14 @@ class HomeViewTests(TestCase):
         """
         If there is not featured post, nothing will be displayed
         """
-        user = self.get_user()
-        create_post(user = user, featured = True, days = 3)
-        post = create_post(user = user, featured = True, days = 2)
+        create_post(user = self.user, featured = True, days = 3)
+        latestFeaturedPost = create_post(user = self.user, featured = True, days = 2)
         response = self.client.get(reverse('core:home'))
         self.assertQuerysetEqual(
-            response.context['feturedPost'],
-            [post]
+            response.context['featuredPost'],
+            [latestFeaturedPost]
         )
+
+    def test_tags(self):
+        pass
         

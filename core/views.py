@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from django.templatetags.static import static
-from core.models.post import Post
 from core.models.category import Category
+from core.models.post import Post
 
 def home(request):
-    feturedPost = Post.objects.get(featured = True)
+    featuredPost = Post.objects.filter(featured = True).order_by('created_at')[0]
     regularPosts = Post.objects.filter(featured = False)
     return render(request, 'core/home.html', {
-        'feturedPost': feturedPost,
+        'featuredPost': featuredPost,
         'regularPosts': regularPosts
     })
 

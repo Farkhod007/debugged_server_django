@@ -7,15 +7,15 @@ from django.utils import timezone
 from django.test import TestCase
 from django.urls import reverse
 
-def create_post(user, title, featured, days):
+def create_post(user, title, featured, days, status = 'PB'):
     post = Post.objects.create(
         user = user, 
         title = title,
         body = "This is a body text",
         image = "posts/post-1_HWfiOph.png",
-        excerpt = "This is a excerpt",
+        excerpt = "This is a excerpt", 
         featured = featured,
-        status = "PB"
+        status = status
     )
     Post.objects.filter(
         pk = post.pk
@@ -61,7 +61,7 @@ class HomeViewTests(TestCase):
         """
         response = self.client.get(reverse('core:home'))
         self.assertIsNone(response.context['featuredPost'])
-        self.assertNotContains(response, "blogpost featured")
+        self.assertNotContains(response, 'class="blogpost featured"')
 
 
     def test_featured_post_must_be_posted_in_the_past(self):
@@ -86,10 +86,58 @@ class HomeViewTests(TestCase):
             pastPost
         )
 
-
-    def test_regular_posts_was_ordered_in_descending_by_created_at(self):
+    
+    def test_featured_post_featured_field_must_be_equal_to_true(self):
         """
-        Regular posts must be ordered in decending by created at field
+        Featured post's featured field value must be eqaul to true
+        """
+        featuredPost = create_post(
+            user = self.user, 
+            title = "Featured post",
+            featured = True, 
+            days = -3
+        )
+        create_post(
+            user = self.user, 
+            title = "Not featured post",
+            featured = False, 
+            days = -2
+        )
+        response = self.client.get(reverse('core:home'))
+        self.assertEqual(
+            response.context['featuredPost'],
+            featuredPost
+        )
+
+
+    def test_featured_post_status_must_be_equal_to_published(self):
+        """
+        Featured post's status field must be eqaul to published
+        """
+        publishedPost = create_post(
+            user = self.user, 
+            title = "Published post",
+            featured = True, 
+            days = -3,
+            status = 'PB'
+        )
+        create_post(
+            user = self.user, 
+            title = "Pending post",
+            featured = True, 
+            days = -2,
+            status = 'PN'
+        )
+        response = self.client.get(reverse('core:home'))
+        self.assertEqual(
+            response.context['featuredPost'],
+            publishedPost
+        )
+
+
+    def test_regular_post_was_ordered_in_descending_by_created_at(self):
+        """
+        Regular post must be ordered in decending by created at field
         """
         firstPost = create_post(
             user = self.user, 
@@ -110,16 +158,16 @@ class HomeViewTests(TestCase):
         )
     
 
-    def test_if_there_are_no_regular_posts_nothing_will_be_displayed(self):
+    def test_if_there_is_no_regular_post_nothing_will_be_displayed(self):
         """
         If there is no regular post, nothing will be displayed
         """
         response = self.client.get(reverse('core:home'))
         self.assertQuerysetEqual(response.context['regularPosts'], [])
-        self.assertNotContains(response, "normal")
+        self.assertNotContains(response, 'class="normal"')
 
 
-    def test_regular_posts_must_be_posted_in_the_past(self):
+    def test_regular_post_must_be_posted_in_the_past(self):
         """
         Regular posts must be posted in the past
         """
@@ -139,4 +187,52 @@ class HomeViewTests(TestCase):
         self.assertQuerysetEqual(
             response.context['regularPosts'],
             [repr(pastPost)]
+        )
+
+    
+    def test_regular_post_featured_field_must_be_equal_to_true(self):
+        """
+        Regular post's featured field value must be eqaul to true
+        """
+        regularPost = create_post(
+            user = self.user, 
+            title = "Regular post",
+            featured = False, 
+            days = -3
+        )
+        create_post(
+            user = self.user, 
+            title = "Featured post",
+            featured = True, 
+            days = -2
+        )
+        response = self.client.get(reverse('core:home'))
+        self.assertQuerysetEqual(
+            response.context['regularPosts'],
+            [repr(regularPost)]
+        )
+
+
+    def test_regular_post_status_must_be_equal_to_published(self):
+        """
+        Featured post's status field must be eqaul to published
+        """
+        publishedPost = create_post(
+            user = self.user, 
+            title = "Published post",
+            featured = False, 
+            days = -3,
+            status = 'PB'
+        )
+        create_post(
+            user = self.user, 
+            title = "Pending post",
+            featured = False, 
+            days = -2,
+            status = 'PN'
+        )
+        response = self.client.get(reverse('core:home'))
+        self.assertQuerysetEqual(
+            response.context['regularPosts'],
+            [repr(publishedPost)]
         )

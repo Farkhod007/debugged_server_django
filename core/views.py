@@ -9,13 +9,15 @@ def home(request):
 
     try:
         featuredPost = Post.objects.filter(
+            status = 'PB',
             featured = True,
-            created_at__lt = timezone.now()
+            created_at__lt = timezone.now(),
         ).order_by('-created_at')[0]
     except IndexError:
         featuredPost = None
 
     regularPosts = Post.objects.filter(
+        status = 'PB',
         featured = False,
         created_at__lt = timezone.now()
     ).order_by('-created_at')

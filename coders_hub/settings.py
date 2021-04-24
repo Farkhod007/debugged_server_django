@@ -114,7 +114,7 @@ TINYMCE_DEFAULT_CONFIG = {
         textcolor save link image media preview codesample contextmenu
         table code lists fullscreen insertdatetime nonbreaking
         contextmenu directionality searchreplace wordcount visualblocks
-        visualchars code fullscreen autolink lists charmap print hr
+        visualchars fullscreen autolink lists charmap print hr
         anchor pagebreak
    ''',
    'toolbar1': '''

@@ -3,22 +3,20 @@ from .base.time_fields_base import TimeFieldsBase
 from django.db import models
 
 class Post(TimeFieldsBase):
-    published = 'PB'
-    pending = 'PN'
-    draft = 'DT'
+
+    STATUS_CHOICES = [
+        ('PB', 'Published'),
+        ('PN', 'Pending'),
+        ('DT', 'Draft'),
+    ]
 
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     title = models.CharField(max_length = 255)
+    slug = models.SlugField(max_length = 255)
     body = models.TextField()
     image = models.ImageField(upload_to = 'posts') 
     excerpt = models.TextField()
     featured = models.BooleanField(default = False)
-    slug = models.SlugField(max_length = 255)
-    STATUS_CHOICES = [
-        (published, 'Published'),
-        (pending, 'Pending'),
-        (draft, 'Draft'),
-    ]
     status = models.CharField(
         max_length = 2,
         choices = STATUS_CHOICES

@@ -25,6 +25,7 @@ class PostForm(forms.ModelForm):
 
 class PostAdmin(admin.ModelAdmin):
     form = PostForm
+    # prepopulated_fields = {"slug": ('title',)}
     inlines = [TagInline, CategoryInline]
 
 

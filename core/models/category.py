@@ -5,7 +5,6 @@ from .post import Post
 
 class Category(CategoryTagBase, TimeFieldsBase):
     posts = models.ManyToManyField(Post)
-    slug = models.SlugField(max_length = 250, null = True, blank = True)
 
     class Meta:
         db_table = "categories" 

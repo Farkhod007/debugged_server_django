@@ -28,10 +28,6 @@ class HomeViewTests(TestCase):
             password = 'password'
         )
 
-<<<<<<< HEAD
-# Create your tests here.
-def 
-=======
     def test_featured_post_must_be_latest_one(self):
         """
         If there is not featured post, nothing will be displayed
@@ -45,4 +41,3 @@ def
             [post]
         )
         
->>>>>>> 9ba4f8f137d9a6dbcdc8a41fb0cec9b719ac4cfb

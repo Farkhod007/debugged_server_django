@@ -13,7 +13,7 @@ class Post(TimeFieldsBase):
     image = models.ImageField(upload_to = 'posts') 
     excerpt = models.TextField()
     featured = models.BooleanField(default = False)
-    slug = models.SlugField(max_length = 250, null = True, blank = True)
+    slug = models.SlugField(max_length = 255)
     STATUS_CHOICES = [
         (published, 'Published'),
         (pending, 'Pending'),

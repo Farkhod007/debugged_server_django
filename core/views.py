@@ -33,7 +33,8 @@ def home(request):
 def category(request, id):
 
     context = {
-        'posts': Category.objects.get(pk = id).posts.all
+        'posts': Category.objects.get(pk = id).posts.all,
+        'id': id
     }
 
     return render(request, 'core/categories.html', context)

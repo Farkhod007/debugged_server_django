@@ -17,6 +17,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'core',
     'tinymce',
+    'safedelete',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -109,6 +110,8 @@ TINYMCE_DEFAULT_CONFIG = {
    'cleanup_on_startup': True,
    'custom_undo_redo_levels': 20,
    'selector': 'textarea',
+   'content_css': os.path.join(STATIC_URL, 'tinymce/content.css'),
+   'font_css': 'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap',
    'theme': 'modern',
    'plugins': '''
         textcolor save link image media preview codesample contextmenu
@@ -129,5 +132,7 @@ TINYMCE_DEFAULT_CONFIG = {
    ''',
    'contextmenu': 'formats | link image',
    'menubar': True,
-   'statusbar': True,
+   'statusbar': True
 }
+
+SAFE_DELETE_INTERPRET_UNDELETED_OBJECTS_AS_CREATED = True

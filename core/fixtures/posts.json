@@ -49,7 +49,7 @@
     },
     {
         "model": "core.post",
-        "pk": 3,
+        "pk": 4,
         "fields": {
             "user": 1,
             "title": "JavaScript Tutorial",

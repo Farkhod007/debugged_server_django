@@ -3,6 +3,7 @@ from django.templatetags.static import static
 from core.models.post import Post
 from core.models.category import Category
 from django.utils import timezone
+from django.http import HttpResponse
 
 
 def home(request):
@@ -30,6 +31,15 @@ def home(request):
     return render(request, 'core/home.html', context)
 
 
+def post(request, id):
+
+    context = {
+        'id': id
+    }
+
+    return render(request, 'core/post_detail.html', context)
+
+
 def category(request, id):
 
     context = {
@@ -37,4 +47,4 @@ def category(request, id):
         'id': id
     }
 
-    return render(request, 'core/categories.html', context)
+    return render(request, 'core/category.html', context)

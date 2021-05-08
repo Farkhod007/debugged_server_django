@@ -1,0 +1,44 @@
+{% extends 'core/layouts/base.html' %} {% load static %}
+
+{% block meta %}
+    <title>Category - </title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+{% endblock %}
+
+{% block content %}
+    <section class="blogposts container">
+        <div class="normal">
+            {% for post in posts %}
+                <article class="blogpost">
+                    <img class="image" src="{{ post.image.url }}"
+                        alt="{{ post.title }}">
+                    <div>
+                        <ul class="categories">
+                            {% for category in post.category_set.all %}
+                                <li class="item">
+                                    <a class="link" href="{% url 'core:category' category.id %}">{{ category.name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <h3 class="title">
+                            {{ post.title }}
+                        </h3>
+                        <p class="excerpt">
+                            {{ post.excerpt }}
+                        </p>
+                        <address>
+                            <ul class="metas">
+                                <li class="item">
+                                    <a class="link" href="#">{{ post.created_at|date:"F d, Y" }}</a>
+                                </li>
+                                <li class="item">
+                                    <a class="link" href="#">{{ post.user }}</a>
+                                </li>
+                            </ul>
+                        </address>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

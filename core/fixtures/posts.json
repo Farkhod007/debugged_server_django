@@ -1,0 +1,66 @@
+[
+    {
+        "model": "core.post",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "title": "HTML <article> Tag",
+            "slug": "html-article-tags",
+            "body": "<h2>Definition and Usage</h2><p>The <article> tag specifies independent, self-contained content.</p>",
+            "image": "fixtures/posts/post-1.png",
+            "excerpt": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione veritatis vero consectetur, suscipit commodi saepe molestiae in ex non deserunt eius aspernatur accusamus at quasi eaque necessitatibus? Ad, blanditiis repellendus?",
+            "featured": true,
+            "status": "PB",
+            "created_at": "2021-04-20 12:15:34.288103+05",
+            "updated_at": "2021-04-20 12:15:34.288103+05"
+        }
+    },
+    {
+        "model": "core.post",
+        "pk": 2,
+        "fields": {
+            "user": 1,
+            "title": "CSS Selectors",
+            "slug": "css-selectors",
+            "body": "<h2>The CSS element Selector</h2><p>The element selector selects HTML elements based on the element name.</p>",
+            "image": "fixtures/posts/post-2.png",
+            "excerpt": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione veritatis vero consectetur, suscipit commodi saepe molestiae in ex non deserunt eius aspernatur accusamus at quasi eaque necessitatibus? Ad, blanditiis repellendus?",
+            "featured": false,
+            "status": "PB",
+            "created_at": "2021-04-21 12:15:34.288103+05",
+            "updated_at": "2021-04-21 12:15:34.288103+05"
+        }
+    },
+    {
+        "model": "core.post",
+        "pk": 3,
+        "fields": {
+            "user": 1,
+            "title": "SQL Tutorial",
+            "slug": "sql-tutorial",
+            "body": "<h2>Examples in Each Chapter</h2><p>With our online SQL editor, you can edit the SQL statements, and click on a button to view the result.</p>",
+            "image": "fixtures/posts/post-3.png",
+            "excerpt": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione veritatis vero consectetur, suscipit commodi saepe molestiae in ex non deserunt eius aspernatur accusamus at quasi eaque necessitatibus? Ad, blanditiis repellendus?",
+            "featured": false,
+            "status": "PB",
+            "created_at": "2021-04-22 12:15:34.288103+05",
+            "updated_at": "2021-04-22 12:15:34.288103+05"
+        }
+    },
+    {
+        "model": "core.post",
+        "pk": 4,
+        "fields": {
+            "user": 1,
+            "title": "JavaScript Tutorial",
+            "slug": "javascript-tutorial",
+            "body": "<h2>Examples in Each Chapter</h2><p>JavaScript is the world's most popular programming language.</p>",
+            "image": "fixtures/posts/post-3.png",
+            "excerpt": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione veritatis vero consectetur, suscipit commodi saepe molestiae in ex non deserunt eius aspernatur accusamus at quasi eaque necessitatibus? Ad, blanditiis repellendus?",
+            "featured": false,
+            "status": "PB",
+            "created_at": "2021-04-23 12:15:34.288103+05",
+            "updated_at": "2021-04-23 12:15:34.288103+05"
+        }
+    }
+]

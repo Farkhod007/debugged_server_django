@@ -17,6 +17,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'core',
     'tinymce',
+    'safedelete',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -103,14 +104,35 @@ MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 
 
-TINYMCE_JS_ROOT = BASE_DIR / "node_modules/tinymce"
-TINYMCE_JS_URL = os.path.join(TINYMCE_JS_ROOT, "tinymce.min.js")
 TINYMCE_DEFAULT_CONFIG = {
-    'plugins': "table, spellchecker, paste",
-    'theme': "silver",
-    'max_width': 1500,
-    'height': 400,
-    'custom_undo_redo_levels': 10,
+   'height': 360,
+   'width': 1000,
+   'cleanup_on_startup': True,
+   'custom_undo_redo_levels': 20,
+   'selector': 'textarea',
+   'content_css': os.path.join(STATIC_URL, 'tinymce/content.css'),
+   'font_css': 'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap',
+   'theme': 'modern',
+   'plugins': '''
+        textcolor save link image media preview codesample contextmenu
+        table code lists fullscreen insertdatetime nonbreaking
+        contextmenu directionality searchreplace wordcount visualblocks
+        visualchars fullscreen autolink lists charmap print hr
+        anchor pagebreak
+   ''',
+   'toolbar1': '''
+        fullscreen preview bold italic underline | fontselect,
+        fontsizeselect | forecolor backcolor | alignleft alignright |
+        aligncenter alignjustify | indent outdent | bullist numlist table |
+        | link image media | codesample |
+   ''',
+   'toolbar2': '''
+        visualblocks visualchars |
+        charmap hr pagebreak nonbreaking anchor | code |
+   ''',
+   'contextmenu': 'formats | link image',
+   'menubar': True,
+   'statusbar': True
 }
-TINYMCE_SPELLCHECKER = True
-TINYMCE_COMPRESSOR = True
+
+SAFE_DELETE_INTERPRET_UNDELETED_OBJECTS_AS_CREATED = True

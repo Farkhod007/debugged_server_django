@@ -25,14 +25,17 @@ class PostForm(forms.ModelForm):
 
 class PostAdmin(admin.ModelAdmin):
     form = PostForm
+    prepopulated_fields = {"slug": ('title',)}
     inlines = [TagInline, CategoryInline]
 
 
 class CategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ('name',)}
     exclude = ['posts']
 
 
 class TagAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ('name',)}
     exclude = ['posts']
 
 

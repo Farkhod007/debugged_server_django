@@ -1,0 +1,36 @@
+[
+    {
+        "model": "core.category",
+        "pk": 1,
+        "fields": {
+            "posts": [1, 2],
+            "name": "Front End",
+            "slug": "front-end",
+            "created_at": "2021-04-20 12:15:34.288103+05",
+            "updated_at": "2021-04-20 12:15:34.288103+05"
+        }
+    },
+    {
+        "model": "core.category",
+        "pk": 2,
+        "fields": {
+            "posts": [3],
+            "name": "Back End",
+            "slug": "back-end",
+            "created_at": "2021-04-21 12:15:34.288103+05",
+            "updated_at": "2021-04-21 12:15:34.288103+05"
+        }
+    },
+    {
+        "model": "core.category",
+        "pk": 3,
+        "fields": {
+            "posts": [3],
+            "parent_id": 2,
+            "name": "Databases",
+            "slug": "databases",
+            "created_at": "2021-04-22 12:15:34.288103+05",
+            "updated_at": "2021-04-22 12:15:34.288103+05"
+        }
+    }
+]

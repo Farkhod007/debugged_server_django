@@ -15,9 +15,11 @@
                     <div>
                         <ul class="categories">
                             {% for category in post.category_set.all %}
-                                <li class="item">
-                                    <a class="link" href="{% url 'core:category' category.id %}">{{ category.name }}</a>
-                                </li>
+                                {% if category.id != id %}
+                                    <li class="item">
+                                        <a class="link" href="{% url 'core:category' category.id %}">{{ category.name }}</a>
+                                    </li>
+                                {% endif %}
                             {% endfor %}
                         </ul>
                         <h3 class="title">

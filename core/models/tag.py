@@ -8,4 +8,4 @@ class Tag(CategoryTagBase, TimeFieldsBase):
     posts = models.ManyToManyField(Post)
 
     class Meta:
-        db_table = "tags"
+        db_table = "tags" 

@@ -1,0 +1,13 @@
+{% extends 'core/layouts/base.html' %}
+
+{% block meta %}
+    <title>{{ post.title }}</title>
+{% endblock %}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.user.username }}</p>
+    <p>{{ post.created_at | date:"F d, Y" }}</p>
+    <img src="{{ post.image.url }}" alt="{{ post.title }}">
+    <div>{{ post.body | safe }}</div>
+{% endblock %}

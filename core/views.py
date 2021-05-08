@@ -3,8 +3,14 @@ from django.templatetags.static import static
 from core.models.post import Post
 from core.models.category import Category
 from django.utils import timezone
-from django.http import HttpResponse
+from django.http import Http404
 
+def post(request, slug):
+    context = {
+        'post': Post.objects.get(slug = slug)
+    }
+    
+    return render(request, 'core/post.html', context)
 
 def home(request):
 
@@ -29,22 +35,12 @@ def home(request):
     }
 
     return render(request, 'core/home.html', context)
+ 
 
-
-def post(request, id):
-
-    context = {
-        'id': id
-    }
-
-    return render(request, 'core/post_detail.html', context)
-
-
-def category(request, id):
+def category(request, slug):
 
     context = {
-        'posts': Category.objects.get(pk = id).posts.all,
-        'id': id
+        'posts': Category.objects.get(slug = slug).posts.all
     }
 
     return render(request, 'core/category.html', context)

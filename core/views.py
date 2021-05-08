@@ -5,10 +5,12 @@ from core.models.category import Category
 from django.utils import timezone
 from django.http import Http404
 
-def posts(request, id):
-    post = Post.objects.get(pk = id)
+def post(request, slug):
+    context = {
+        'post': Post.objects.get(slug = slug)
+    }
     
-    return render(request, 'core/post_detail.html', {'post': post})
+    return render(request, 'core/post.html', context)
 
 def home(request):
 
@@ -35,10 +37,10 @@ def home(request):
     return render(request, 'core/home.html', context)
  
 
-def category(request, id):
+def category(request, slug):
 
     context = {
-        'posts': Category.objects.get(pk = id).posts.all
+        'posts': Category.objects.get(slug = slug).posts.all
     }
 
-    return render(request, 'core/categories.html', context)
+    return render(request, 'core/category.html', context)

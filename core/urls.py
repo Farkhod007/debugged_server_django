@@ -4,6 +4,6 @@ from . import views
 app_name = 'core'
 urlpatterns = [
     path('', views.home, name = 'home'),
-    path('category/<int:id>', views.category, name = 'category'),
-    path('posts/<int:id>', views.post, name = 'post')
+    path('category/<slug:slug>', views.category, name = 'category'),
+    path('posts/<slug:slug>', views.post, name = 'post')
 ]

@@ -31,10 +31,10 @@ def home(request):
     return render(request, 'core/home.html', context)
  
 
-def category(request, id):
+def category(request, slug):
 
     context = {
-        'posts': Category.objects.get(pk = id).posts.all
+        'posts': Category.objects.get(slug = slug).posts.all
     }
 
-    return render(request, 'core/categories.html', context)
+    return render(request, 'core/category.html', context)

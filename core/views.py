@@ -5,10 +5,6 @@ from core.models.category import Category
 from django.utils import timezone
 from django.http import Http404
 
-def posts(request, id):
-    post = Post.objects.get(pk = id)
-    
-    return render(request, 'core/post_detail.html', {'post': post})
 
 def home(request):
 

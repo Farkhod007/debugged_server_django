@@ -62,5 +62,88 @@
             "created_at": "2021-04-23 12:15:34.288103+05",
             "updated_at": "2021-04-23 12:15:34.288103+05"
         }
+    },
+    {
+        "model": "core.post",
+        "pk": 5,
+        "fields": {
+            "user": 1,
+            "title": "Python tutorial",
+            "slug": "Python tutorial",
+            "body": "<h2>Examples in Each Chapter</h2><p>Python in the world's most popular language.</p>",
+            "image": "fixtures/posts/post-4.png",
+            "excerpt": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione veritatis vero consectetur, suscipit commodi saepe molestiae in ex non deserunt eius aspernatur accusamus at quasi eaque necessitatibus? Ad, blanditiis repellendus?",
+            "featured": false,
+            "status": "PB",
+            "created_at": "2021-05-09 15:41:34.288103+05",
+            "updated_at": "2021-05-10 15:41:34.288103+05" 
+        }
+    },
+    {
+        "model": "core.post",
+        "pk": 6,
+        "fields": {
+            "user": 1,
+            "title": "PHP",
+            "slug": "PHP",
+            "body": "<h2>Examples in Each Chapter</h2><p>PHP is a web programming language.</p>",
+            "image": "fixtures/posts/post-5.png",
+            "excerpt": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione veritatis vero consectetur, suscipit commodi saepe molestiae in ex non deserunt eius aspernatur accusamus at quasi eaque necessitatibus? Ad, blanditiis repellendus?",
+            "featured": false,
+            "status": "PB",
+            "created_at": "2021-05-09 15:41:34.288103+05",
+            "updated_at": "2021-05-10 15:41:34.288103+05"  
+        }
+    },
+    {
+        "model": "core.post",
+        "pk": 7,
+        "fields": {
+            "title": "Bootstrap",
+            "slug": "Bootstrap",
+            "body": "<h2>Examples in Each Chapter</h2><p>Bootstrap gives you the ability to easily create a responsive design.</p>",
+            "image": "fixtures/posts/post-6.png",
+            "excerpt": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione veritatis vero consectetur, suscipit commodi saepe molestiae in ex non deserunt eius aspernatur accusamus at quasi eaque necessitatibus? Ad, blanditiis repellendus?",
+            "featured": false,
+            "status": "PB",
+            "created_at": "2021-05-09 15:41:34.288103+05",
+            "updated_at": "2021-05-10 15:41:34.288103+05" 
+        }
+    },
+    {
+        "model": "core.post",
+        "pk": 8,
+        "fields": {
+            "title": "Java",
+            "slug": "java",
+            "body":"<h2>The Java Tutorial</h2><p>Java is used to develop mobile apps, web apps, desktop apps, games and much more.</p>",
+            "image": "fixtures/posts/post-7.png",
+            "excerpt": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione veritatis vero consectetur, suscipit commodi saepe molestiae in ex non deserunt eius aspernatur accusamus at quasi eaque necessitatibus? Ad, blanditiis repellendus?",
+            "featured": false,
+            "status": "PB",
+            "created_at": "2021-04-20 12:15:34.288103+05",
+            "updated_at": "2021-04-20 12:15:34.288103+05"
+        }
+    },
+    {
+        "model": "core.post",
+        "pk": 9,
+        "fields": {
+            "title": "jQuery",
+            "slug": "jQuery",
+            "body":"<h2>Examples in Each Chapter</h2><p>jQuery is a JavaScript Library.</p>",
+            "image": "fixtures/posts/post-8.png",
+            "excerpt": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione veritatis vero consectetur, suscipit commodi saepe molestiae in ex non deserunt eius aspernatur accusamus at quasi eaque necessitatibus? Ad, blanditiis repellendus?",
+            "featured": false,
+            "status": "PB",
+            "created_at":"2021-04-20 12:15:34.288103+05",
+            "updated_at":"2021-04-20 12:15:34.288103+05"
+        }
     }
+
+
+
+
+
+
 ]

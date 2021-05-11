@@ -6,6 +6,7 @@ from core.models.post import Post
 from django.utils import timezone
 from django.test import TestCase
 from django.urls import reverse
+from core.models.category import Category
 
 def create_post(user, title, featured, days, status = 'PB'):
     post = Post.objects.create(
@@ -235,4 +236,57 @@ class HomeViewTests(TestCase):
         self.assertQuerysetEqual(
             response.context['regularPosts'],
             [repr(publishedPost)]
+        )
+
+def create_category(name, days):
+        
+        time = timezone.now() + datetime.datetime(days = days) 
+        return Category.objects.create(name = name, created_at = time)
+
+
+
+
+class Testcategoryview(TestCase):
+    
+    def test_was_published_recently_with_future_category(self):
+        
+        time = timezone.now() + datetime.datetime(days=1, second=1) 
+        future_category = Category(created_at = time)
+        self.assertIs(future_category.was_published_recently(), True)
+
+    
+    def test_no_category(self):
+        """
+        If no category exist, an appropriate message is displayed.
+        """
+        response = self.client.get(reverse('core:category'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "No category are available.")
+        self.assertQuerysetEqual(response.context['posts'], [])
+
+    
+    
+    def test_future_category_and_past_category(self):
+        """
+        Even if both past and future category exist, only past category
+        are displayed.
+        """
+        category = create_category(name = "Past category.", days=-30)
+        create_category(name="Future category.", days=30)
+        response = self.client.get(reverse('core:category'))
+        self.assertQuerysetEqual(
+            response.context['posts'],
+            [category],
+        )
+
+    def test_two_past_category(self):
+        """
+        The categories index page may display multiple categories.
+        """
+        category1 = create_category(name="Past category 1.", days=-30)
+        category2 = create_category(name="Past category 2.", days=-5)
+        response = self.client.get(reverse('polls:index'))
+        self.assertQuerysetEqual(
+            response.context['posts'],
+            [category2, category1],
         )

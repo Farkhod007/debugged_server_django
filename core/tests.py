@@ -1,17 +1,18 @@
 import datetime
 
+from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
-from django.test.client import Client
+from core.models.category import Category
 from core.models.post import Post
 from django.utils import timezone
 from django.test import TestCase
 from django.urls import reverse
-from core.models.category import Category
 
 def create_post(user, title, featured, days, status = 'PB'):
     post = Post.objects.create(
         user = user, 
         title = title,
+        slug = slugify(title),
         body = "This is a body text",
         image = "posts/post-1_HWfiOph.png",
         excerpt = "This is a excerpt", 
@@ -22,6 +23,15 @@ def create_post(user, title, featured, days, status = 'PB'):
         pk = post.pk
     ).update(created_at = timezone.now() + datetime.timedelta(days = days))
     return post
+
+
+def create_category(name, days):
+        
+    return Category.objects.create(
+        name = name, 
+        slug = slugify(name),
+        created_at = timezone.now() + datetime.timedelta(days = days)
+    )
 
 
 class HomeViewTests(TestCase):
@@ -136,7 +146,7 @@ class HomeViewTests(TestCase):
         )
 
 
-    def test_regular_post_was_ordered_in_descending_by_created_at(self):
+    def test_regular_post_must_be_ordered_in_descending_by_created_at(self):
         """
         Regular post must be ordered in decending by created at field
         """
@@ -238,55 +248,39 @@ class HomeViewTests(TestCase):
             [repr(publishedPost)]
         )
 
-def create_category(name, days):
-        
-        time = timezone.now() + datetime.datetime(days = days) 
-        return Category.objects.create(name = name, created_at = time)
+
+class CategoryViewTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_superuser(
+            username = 'Tester', 
+            email = 'tester@admin.com', 
+            password = 'password'
+        )
 
 
-
-
-class Testcategoryview(TestCase):
-    
-    def test_was_published_recently_with_future_category(self):
-        
-        time = timezone.now() + datetime.datetime(days=1, second=1) 
-        future_category = Category(created_at = time)
-        self.assertIs(future_category.was_published_recently(), True)
-
-    
-    def test_no_category(self):
+    def test_category_must_exist(self):
         """
-        If no category exist, an appropriate message is displayed.
+        Category must exist
         """
-        response = self.client.get(reverse('core:category'))
+        category = create_category(name = "Example category", days = -3)
+        post = create_post(
+            user = self.user,
+            title = "Post", 
+            featured = False, 
+            days = -3
+        )
+        category.posts.add(post)
+        response = self.client.get(reverse('core:category', kwargs = {'slug': slugify("Example category")}))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "No category are available.")
-        self.assertQuerysetEqual(response.context['posts'], [])
-
+        self.assertQuerysetEqual(response.context['posts'], [repr(post)])
     
-    
-    def test_future_category_and_past_category(self):
-        """
-        Even if both past and future category exist, only past category
-        are displayed.
-        """
-        category = create_category(name = "Past category.", days=-30)
-        create_category(name="Future category.", days=30)
-        response = self.client.get(reverse('core:category'))
-        self.assertQuerysetEqual(
-            response.context['posts'],
-            [category],
-        )
 
-    def test_two_past_category(self):
+    def test_posts_of_category_must_be_ordered_in_descending_by_created_at(self):
         """
-        The categories index page may display multiple categories.
+        Posts of category must be ordered in descending by created_at field
         """
-        category1 = create_category(name="Past category 1.", days=-30)
-        category2 = create_category(name="Past category 2.", days=-5)
-        response = self.client.get(reverse('polls:index'))
-        self.assertQuerysetEqual(
-            response.context['posts'],
-            [category2, category1],
-        )
+
+    def test_category_must_not_be_displayed_in_own_post_caption(self):
+        """
+        Category must not be displayed in own post's caption
+        """

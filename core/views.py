@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.templatetags.static import static
 from core.models.post import Post
 from core.models.category import Category
 from django.utils import timezone
@@ -40,7 +39,8 @@ def home(request):
 def category(request, slug):
 
     context = {
-        'posts': Category.objects.get(slug = slug).posts.all
+        'posts': Category.objects.get(slug = slug).posts.all(),
+        'slug': slug
     }
 
     return render(request, 'core/category.html', context)

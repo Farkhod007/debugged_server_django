@@ -44,8 +44,7 @@
                 {% for regularPost in regularPosts %}
                     <a href="{% url 'core:post' regularPost.slug %}">
                         <article class="blogpost">
-                            <img class="image" src="{{ regularPost.image.url }}"
-                                alt="{{ regularPost.title }}">
+                            <img class="image" src="{{ regularPost.image.url }}" alt="{{ regularPost.title }}" />
                             <div>
                                 <ul class="categories">
                                     {% for category in regularPost.category_set.all %}

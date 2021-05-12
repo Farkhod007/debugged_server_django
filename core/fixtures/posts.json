@@ -99,6 +99,7 @@
         "model": "core.post",
         "pk": 7,
         "fields": {
+            "user_id": 1,
             "title": "Bootstrap",
             "slug": "bootstrap",
             "body": "<h2>Examples in Each Chapter</h2><p>Bootstrap gives you the ability to easily create a responsive design.</p>",
@@ -114,6 +115,7 @@
         "model": "core.post",
         "pk": 8,
         "fields": {
+            "user_id": 1,
             "title": "Java",
             "slug": "java",
             "body":"<h2>The Java Tutorial</h2><p>Java is used to develop mobile apps, web apps, desktop apps, games and much more.</p>",
@@ -129,6 +131,7 @@
         "model": "core.post",
         "pk": 9,
         "fields": {
+            "user_id": 1,
             "title": "jQuery",
             "slug": "jQuery",
             "body":"<h2>Examples in Each Chapter</h2><p>jQuery is a JavaScript Library.</p>",

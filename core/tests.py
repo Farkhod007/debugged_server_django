@@ -1,7 +1,8 @@
 import datetime
 
+from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
-from django.test.client import Client
+from core.models.category import Category
 from core.models.post import Post
 from django.utils import timezone
 from django.test import TestCase
@@ -11,6 +12,7 @@ def create_post(user, title, featured, days, status = 'PB'):
     post = Post.objects.create(
         user = user, 
         title = title,
+        slug = slugify(title),
         body = "This is a body text",
         image = "posts/post-1_HWfiOph.png",
         excerpt = "This is a excerpt", 
@@ -21,6 +23,15 @@ def create_post(user, title, featured, days, status = 'PB'):
         pk = post.pk
     ).update(created_at = timezone.now() + datetime.timedelta(days = days))
     return post
+
+
+def create_category(name, days):
+        
+    return Category.objects.create(
+        name = name, 
+        slug = slugify(name),
+        created_at = timezone.now() + datetime.timedelta(days = days)
+    )
 
 
 class HomeViewTests(TestCase):
@@ -135,7 +146,7 @@ class HomeViewTests(TestCase):
         )
 
 
-    def test_regular_post_was_ordered_in_descending_by_created_at(self):
+    def test_regular_post_must_be_ordered_in_descending_by_created_at(self):
         """
         Regular post must be ordered in decending by created at field
         """
@@ -236,3 +247,40 @@ class HomeViewTests(TestCase):
             response.context['regularPosts'],
             [repr(publishedPost)]
         )
+
+
+class CategoryViewTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_superuser(
+            username = 'Tester', 
+            email = 'tester@admin.com', 
+            password = 'password'
+        )
+
+
+    def test_category_must_exist(self):
+        """
+        Category must exist
+        """
+        category = create_category(name = "Example category", days = -3)
+        post = create_post(
+            user = self.user,
+            title = "Post", 
+            featured = False, 
+            days = -3
+        )
+        category.posts.add(post)
+        response = self.client.get(reverse('core:category', kwargs = {'slug': slugify("Example category")}))
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerysetEqual(response.context['posts'], [repr(post)])
+    
+
+    def test_posts_of_category_must_be_ordered_in_descending_by_created_at(self):
+        """
+        Posts of category must be ordered in descending by created_at field
+        """
+
+    def test_category_must_not_be_displayed_in_own_post_caption(self):
+        """
+        Category must not be displayed in own post's caption
+        """

@@ -15,9 +15,9 @@
                     <div>
                         <ul class="categories">
                             {% for category in post.category_set.all %}
-                                {% if category.id != id %}
+                                {% if category.slug != slug %}
                                     <li class="item">
-                                        <a class="link" href="{% url 'core:category' category.id %}">{{ category.name }}</a>
+                                        <a class="link" href="{% url 'core:category' category.slug %}">{{ category.name }}</a>
                                     </li>
                                 {% endif %}
                             {% endfor %}

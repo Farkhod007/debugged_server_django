@@ -11,6 +11,7 @@ def post(request, slug):
     
     return render(request, 'core/post.html', context)
 
+
 def home(request):
 
     try:
@@ -39,7 +40,10 @@ def home(request):
 def category(request, slug):
 
     context = {
-        'posts': Category.objects.get(slug = slug).posts.all(),
+        'posts': Category.objects.get(slug = slug).posts.filter(
+            status = 'PB',
+            created_at__lt = timezone.now()
+        ).order_by('-created_at'),
         'slug': slug
     }
 

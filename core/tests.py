@@ -272,7 +272,11 @@ class CategoryViewTests(TestCase):
             days = -3
         )
         category.posts.add(post)
-        response = self.client.get(reverse('core:category', kwargs = {'slug': slugify("Example category")}))
+        response = self.client.get(reverse(
+            'core:category', 
+            kwargs = {'slug': slugify("Example category")})
+        )
+
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(response.context['posts'], [repr(post)])
     
@@ -282,9 +286,10 @@ class CategoryViewTests(TestCase):
         Posts of category must be ordered in descending by created_at field
         
         """
-        firscategory = create_category(
-        name = "yes catego", 
-        days = -1)
+        firstCategory = create_category(
+            name = "First category", 
+            days = -1
+        )
 
         firstPost = create_post(
             user = self.user, 
@@ -298,46 +303,53 @@ class CategoryViewTests(TestCase):
             featured = False, 
             days = -2
         )
-        
-        firscategory.posts.add(firstPost, secondPost)
-        response = self.client.get(reverse('core:category'))
+        firstCategory.posts.add(firstPost, secondPost)
+
+        response = self.client.get(reverse(
+            'core:category', 
+            kwargs = {'slug': slugify("First category")})
+        )
+
         self.assertQuerysetEqual(
-            response.context['posts'],[repr(firscategory)], [repr(secondPost), repr(firstPost)])
-            
-
-        # categories = Category.objects.annotate(most_recent=Max(post__date)).order_by('-most_recent')[:5]
-
-        # posts = list()
-        # for category in categories:
-        # posts.append(category.post_set.latest())
-
-        # posts = list()
-        # for category in :
-        #     posts.append(category.post_set.latest())
-
-    
-    
+            response.context['posts'],
+            [repr(secondPost), repr(firstPost)]
+        )
         
 
     def test_category_must_not_be_displayed_in_own_post_caption(self):
         """
         Category must not be displayed in own post's caption
         """
-        MyCategory = create_category(
-        name = "Front End", 
-        days = -1)
-
-        PostOne = create_post(
+        category = create_category(
+            name = "Front End", 
+            days = -1
+        )
+        post = create_post(
             user = self.user, 
             title = "First post",
             featured = False, 
             days = -3
         )
-        
-        MyCategory.posts.add(PostOne)
-        response = self.client.get(reverse('core:category.html'))
-        self.assertQuerysetEqual(
-            response.context['post'], [repr(PostOne)])
-         
+        category.posts.add(post)
 
+        link = reverse('core:category', kwargs = {'slug': slugify("Front End")})
+
+        response = self.client.get(link)
+
+        self.assertNotContains(
+            response, 
+            link
+        )
+
+
+    def test_each_post_of_category_status_must_be_equal_to_published(self):
+        """
+        Each posts of category status must be euqal to published
+        """
+
+
+    def test_each_post_of_category_must_be_published_in_the_past(self):
+        """
+        Each posts of category must be published in the past
+        """
         

@@ -7,6 +7,8 @@ from core.models.post import Post
 from django.utils import timezone
 from django.test import TestCase
 from django.urls import reverse
+from django.db.models import Max
+
 
 def create_post(user, title, featured, days, status = 'PB'):
     post = Post.objects.create(
@@ -278,9 +280,64 @@ class CategoryViewTests(TestCase):
     def test_posts_of_category_must_be_ordered_in_descending_by_created_at(self):
         """
         Posts of category must be ordered in descending by created_at field
+        
         """
+        firscategory = create_category(
+        name = "yes catego", 
+        days = -1)
+
+        firstPost = create_post(
+            user = self.user, 
+            title = "First post",
+            featured = False, 
+            days = -3
+        )
+        secondPost = create_post(
+            user = self.user, 
+            title = "Second post",
+            featured = False, 
+            days = -2
+        )
+        
+        firscategory.posts.add(firstPost, secondPost)
+        response = self.client.get(reverse('core:category'))
+        self.assertQuerysetEqual(
+            response.context['posts'],[repr(firscategory)], [repr(secondPost), repr(firstPost)])
+            
+
+        # categories = Category.objects.annotate(most_recent=Max(post__date)).order_by('-most_recent')[:5]
+
+        # posts = list()
+        # for category in categories:
+        # posts.append(category.post_set.latest())
+
+        # posts = list()
+        # for category in :
+        #     posts.append(category.post_set.latest())
+
+    
+    
+        
 
     def test_category_must_not_be_displayed_in_own_post_caption(self):
         """
         Category must not be displayed in own post's caption
         """
+        MyCategory = create_category(
+        name = "Front End", 
+        days = -1)
+
+        PostOne = create_post(
+            user = self.user, 
+            title = "First post",
+            featured = False, 
+            days = -3
+        )
+        
+        MyCategory.posts.add(PostOne)
+        response = self.client.get(reverse('core:category.html'))
+        self.assertQuerysetEqual(
+            response.context['post'], [repr(PostOne)])
+         
+
+        

@@ -1,4 +1,5 @@
 import datetime
+from unittest import result
 
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
@@ -346,14 +347,46 @@ class CategoryViewTests(TestCase):
         )
 
 
-    def test_each_post_of_category_status_must_be_equal_to_published(self):
+    def test_each_post_of_category_status_must_be_equal_to_published(self,):
         """
         Each posts of category status must be euqal to published
         """
+        category = create_category(
+            name = "Front End", 
+            days = -1
+        )
+        post = create_post(
+            user = self.user, 
+            title = "First post",
+            featured = False, 
+            days = -1
+        )
+        category.posts.add(post)
+        
 
+        link = reverse('core:category', kwargs = {'slug': slugify("Front End")})
 
+        response = self.client.get(link)
+        self.assertQuerysetEqual(response.context['posts'], [repr(post)])    
+                
     def test_each_post_of_category_must_be_published_in_the_past(self):
         """
         Each posts of category must be published in the past
         """
-        
+        category = create_category(
+            name = "Front End", 
+            days = -1
+        )
+        post = create_post(
+            user = self.user, 
+            title = "First post",
+            featured = False, 
+            days = -1
+        )
+                 
+        link = reverse('core:category', 
+        kwargs = {'slug': slugify("Front End")})
+        response = self.client.get(link)
+        self.assertQuerysetEqual(
+            response.context['posts'],
+            [repr(post)])

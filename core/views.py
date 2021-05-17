@@ -13,7 +13,7 @@ def post(request, slug):
 
 
 def home(request):
-
+    
     try:
         featuredPost = Post.objects.filter(
             status = 'PB',

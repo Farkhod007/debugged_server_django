@@ -289,7 +289,6 @@ class CategoryViewTests(TestCase):
     def test_posts_of_category_must_be_ordered_in_descending_by_created_at(self):
         """
         Posts of category must be ordered in descending by created_at field
-        
         """
         firstCategory = create_category(
             name = "First category", 
@@ -347,7 +346,7 @@ class CategoryViewTests(TestCase):
         )
 
 
-    def test_each_post_of_category_status_must_be_equal_to_published(self,):
+    def test_each_post_of_category_status_must_be_equal_to_published(self):
         """
         Each posts of category status must be euqal to published
         """
@@ -355,20 +354,31 @@ class CategoryViewTests(TestCase):
             name = "Front End", 
             days = -1
         )
-        post = create_post(
+        firstPost = create_post(
             user = self.user, 
             title = "First post",
             featured = False, 
             days = -1
         )
-        category.posts.add(post)
+        secondPost = create_post(
+            user = self.user, 
+            title = "Second post",
+            featured = False, 
+            days = -2,
+            status = 'DT'
+        )
+        category.posts.add(firstPost, secondPost)
+
+        response = self.client.get(reverse('core:category', kwargs = {
+            'slug': slugify("Front End")
+        }))
         
-
-        link = reverse('core:category', kwargs = {'slug': slugify("Front End")})
-
-        response = self.client.get(link)
-        self.assertQuerysetEqual(response.context['posts'], [repr(post)])    
+        self.assertQuerysetEqual(
+            response.context['posts'], 
+            [repr(firstPost)]
+        )    
                 
+
     def test_each_post_of_category_must_be_published_in_the_past(self):
         """
         Each posts of category must be published in the past
@@ -377,16 +387,25 @@ class CategoryViewTests(TestCase):
             name = "Front End", 
             days = -1
         )
-        post = create_post(
+        pastPost = create_post(
             user = self.user, 
-            title = "First post",
+            title = "Past post",
             featured = False, 
             days = -1
         )
+        futurePost = create_post(
+            user = self.user, 
+            title = "Future post",
+            featured = False, 
+            days = 2
+        )
+        category.posts.add(pastPost, futurePost)
                  
-        link = reverse('core:category', 
-        kwargs = {'slug': slugify("Front End")})
-        response = self.client.get(link)
+        response = self.client.get(reverse('core:category', kwargs = {
+            'slug': slugify("Front End")
+        }))
+
         self.assertQuerysetEqual(
             response.context['posts'],
-            [repr(post)])
+            [repr(pastPost)]
+        )

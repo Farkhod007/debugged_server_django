@@ -264,7 +264,10 @@ class CategoryViewTests(TestCase):
         """
         Category must exist
         """
-        category = create_category(name = "Example category", days = -3)
+        category = create_category(
+            name = "Example category", 
+            days = -3
+        )
         post = create_post(
             user = self.user,
             title = "Post", 
@@ -272,6 +275,7 @@ class CategoryViewTests(TestCase):
             days = -3
         )
         category.posts.add(post)
+
         response = self.client.get(reverse(
             'core:category', 
             kwargs = {'slug': slugify("Example category")})

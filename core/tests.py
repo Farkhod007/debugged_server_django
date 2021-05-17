@@ -1,4 +1,5 @@
 import datetime
+from unittest import result
 
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
@@ -264,7 +265,10 @@ class CategoryViewTests(TestCase):
         """
         Category must exist
         """
-        category = create_category(name = "Example category", days = -3)
+        category = create_category(
+            name = "Example category", 
+            days = -3
+        )
         post = create_post(
             user = self.user,
             title = "Post", 
@@ -272,6 +276,7 @@ class CategoryViewTests(TestCase):
             days = -3
         )
         category.posts.add(post)
+
         response = self.client.get(reverse(
             'core:category', 
             kwargs = {'slug': slugify("Example category")})
@@ -284,7 +289,6 @@ class CategoryViewTests(TestCase):
     def test_posts_of_category_must_be_ordered_in_descending_by_created_at(self):
         """
         Posts of category must be ordered in descending by created_at field
-        
         """
         firstCategory = create_category(
             name = "First category", 
@@ -346,10 +350,62 @@ class CategoryViewTests(TestCase):
         """
         Each posts of category status must be euqal to published
         """
+        category = create_category(
+            name = "Front End", 
+            days = -1
+        )
+        firstPost = create_post(
+            user = self.user, 
+            title = "First post",
+            featured = False, 
+            days = -1
+        )
+        secondPost = create_post(
+            user = self.user, 
+            title = "Second post",
+            featured = False, 
+            days = -2,
+            status = 'DT'
+        )
+        category.posts.add(firstPost, secondPost)
 
+        response = self.client.get(reverse('core:category', kwargs = {
+            'slug': slugify("Front End")
+        }))
+        
+        self.assertQuerysetEqual(
+            response.context['posts'], 
+            [repr(firstPost)]
+        )    
+                
 
     def test_each_post_of_category_must_be_published_in_the_past(self):
         """
         Each posts of category must be published in the past
         """
-        
+        category = create_category(
+            name = "Front End", 
+            days = -1
+        )
+        pastPost = create_post(
+            user = self.user, 
+            title = "Past post",
+            featured = False, 
+            days = -1
+        )
+        futurePost = create_post(
+            user = self.user, 
+            title = "Future post",
+            featured = False, 
+            days = 2
+        )
+        category.posts.add(pastPost, futurePost)
+                 
+        response = self.client.get(reverse('core:category', kwargs = {
+            'slug': slugify("Front End")
+        }))
+
+        self.assertQuerysetEqual(
+            response.context['posts'],
+            [repr(pastPost)]
+        )

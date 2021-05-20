@@ -1,5 +1,6 @@
 import datetime
 from unittest import result
+from django.http import response
 
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
@@ -386,3 +387,5 @@ class CategoryViewTests(TestCase):
         self.assertQuerysetEqual(
             response.context['posts'],
             [repr(post)])
+        
+    

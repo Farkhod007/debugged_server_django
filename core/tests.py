@@ -1,5 +1,6 @@
 import datetime
 from unittest import result
+from django.http import response
 
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
@@ -258,7 +259,7 @@ class CategoryViewTests(TestCase):
         self.user = User.objects.create_superuser(
             username = 'Tester', 
             email = 'tester@admin.com', 
-            password = 'password'
+            password = 'password',
         )
 
 
@@ -410,3 +411,23 @@ class CategoryViewTests(TestCase):
             response.context['posts'],
             [repr(pastPost)]
         )
+
+    def test_the_incoming_slug_in_the_request_must_be_equal_to_the_incoming_from_the_database(self):
+
+        category = create_category(
+            name = "Front End", 
+            days = -1
+        )
+        
+        response = self.client.get(reverse('core:category', kwargs = {
+            'slug': slugify("Front End")
+        }))
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.context['slug'], 
+            category.slug
+        )
+        
+
+    

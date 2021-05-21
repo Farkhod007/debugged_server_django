@@ -411,7 +411,7 @@ class CategoryViewTests(TestCase):
             [repr(pastPost)]
         )
 
-    def testing_to_slug(self):
+    def test_the_incoming_slug_in_the_request_must_be_equal_to_the_incoming_from_the_database(self):
 
         category = create_category(
             name = "Front End", 
@@ -419,11 +419,14 @@ class CategoryViewTests(TestCase):
         )
         
         response = self.client.get(reverse('core:category', kwargs = {
-            'slug' : slugify("Front End")
+            'slug': slugify("Front End")
         }))
         
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context['slug'], category.slug)
+        self.assertEqual(
+            response.context['slug'], 
+            category.slug
+        )
         
 
     

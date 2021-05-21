@@ -11,7 +11,7 @@
             {% for post in posts %}
                 <article class="blogpost">
                     <img class="image" src="{{ post.image.url }}"
-                        alt="{{ post.title }}">
+                        alt="{{ post.title }}" />
                     <div>
                         <ul class="categories">
                             {% for category in post.category_set.all %}

@@ -46,6 +46,7 @@ class HomeViewTests(TestCase):
             password = 'password'
         )
 
+
     def test_featured_post_must_be_latest_one(self):
         """
         If there is more than one featured post, must get the latest one

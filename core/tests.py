@@ -380,46 +380,50 @@ class CategoryViewTests(TestCase):
         )    
                 
 
-    # def test_each_post_of_category_must_be_published_in_the_past(self):
-    #     """
-    #     Each posts of category must be published in the past
-    #     """
-    #     category = create_category(
-    #         name = "Front End", 
-    #         days = -1
-    #     )
-    #     pastPost = create_post(
-    #         user = self.user, 
-    #         title = "Past post",
-    #         featured = False, 
-    #         days = -1
-    #     )
-    #     futurePost = create_post(
-    #         user = self.user, 
-    #         title = "Future post",
-    #         featured = False, 
-    #         days = 2
-    #     )
-    #     category.posts.add(pastPost, futurePost)
-                 
-    #     response = self.client.get(reverse('core:category', kwargs = {
-    #         'slug': slugify("Front End")
-    #     }))
-
-    #     self.assertQuerysetEqual(
-    #         response.context['posts'],
-    #         [repr(post)])
-
-        def testing_to_slug(self):
-            category = Category.objects.create(
+    def test_each_post_of_category_must_be_published_in_the_past(self):
+        """
+        Each posts of category must be published in the past
+        """
+        category = create_category(
             name = "Front End", 
-            days = -1,
-            slug = "backend"
+            days = -1
+        )
+        pastPost = create_post(
+            user = self.user, 
+            title = "Past post",
+            featured = False, 
+            days = -1
+        )
+        futurePost = create_post(
+            user = self.user, 
+            title = "Future post",
+            featured = False, 
+            days = 2
+        )
+        category.posts.add(pastPost, futurePost)
+                 
+        response = self.client.get(reverse('core:category', kwargs = {
+            'slug': slugify("Front End")
+        }))
+
+        self.assertQuerysetEqual(
+            response.context['posts'],
+            [repr(pastPost)]
+        )
+
+    def testing_to_slug(self):
+
+        category = create_category(
+            name = "Front End", 
+            days = -1
         )
         
-        response = self.client.get(reverse('core:category', args = (category.slug,)))
+        response = self.client.get(reverse('core:category', kwargs = {
+            'slug' : slugify("Front End")
+        }))
         
         self.assertEqual(response.status_code, 200)
-
+        self.assertEqual(response.context['slug'], category.slug)
+        
 
     

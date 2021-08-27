@@ -24,7 +24,7 @@ def create_post(user, title, featured, days, status = 'PB'):
         status = status
     )
     Post.objects.filter(
-        pk = post.pk
+            pk = post.pk
     ).update(created_at = timezone.now() + datetime.timedelta(days = days))
     return post
 
